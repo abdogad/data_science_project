@@ -26,9 +26,11 @@ def replace_outliers_with_max(df, multiple=4):
 
                             # Calculate the threshold for outliers
                             threshold = mean_value + multiple * std_value
+                            thresmin = mean_value - multiple * std_value
 
                             # Replace outliers with the maximum value
                             df.loc[df[column_name] > threshold, column_name] = mean_value + multiple * std_value
+                            df.loc[df[column_name] < thresmin, column_name] = mean_value - multiple * std_value
 
                         return df
 def feauter_selection(train):
@@ -64,4 +66,4 @@ def clean_data(train):
     train=standerliztion(train)
     x,y=balancing(train)
 
-    return x,y
+    return x,y,train
